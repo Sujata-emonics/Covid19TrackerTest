@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">COVID-19 TRACKER</string>
+    <string name="log_in">Sign In</string>
+    <string name="log_signUp">Sign Up</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_pwd">Password</string>
+</resources>
