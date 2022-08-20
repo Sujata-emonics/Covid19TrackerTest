@@ -295,16 +295,19 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
+                    android:id="@+id/link_google"
                     android:layout_height="35dp"
                     android:layout_margin="10dp"
                     android:src="@drawable/ic_google" />
                 <ImageView
                     android:src="@drawable/ic_facebook"
+                    android:id="@+id/link_fb"
                     android:layout_margin="10dp"
                     android:layout_width="35dp"
                     android:layout_height="35dp"/>
                 <ImageView
                     android:src="@drawable/ic_twitter"
+                    android:id="@+id/link_twitter"
                     android:layout_margin="10dp"
                     android:layout_width="35dp"
                     android:layout_height="35dp"/>

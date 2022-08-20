@@ -1,6 +1,11 @@
 package com.emonics.covid19trackertest.activities
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
+import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,6 +14,7 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -16,11 +22,20 @@ import com.emonics.covid19trackertest.R
 import com.emonics.covid19trackertest.helpers.validation.RegistrationFormEvent
 import com.emonics.covid19trackertest.viewModel.MainActivityViewModel
 import com.emonics.covid19trackertest.viewModel.SignInValidationViewModel
+import com.emonics.covid19trackertest.viewModel.UserLogInViewModel
+import com.facebook.CallbackManager
+import com.facebook.CallbackManager.Factory.create
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import kotlinx.coroutines.launch
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel:MainActivityViewModel //ViewModel handling the switch the option for signup/signIn
     private lateinit var viewModelValidation:SignInValidationViewModel //ViewModel for the validations SignIn/SignUp page
+    private lateinit var userLogInViewModel:UserLogInViewModel //ViewModel for the validations SignIn/SignUp page
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +46,34 @@ class MainActivity : AppCompatActivity() {
         var logIn = findViewById<TextView>(R.id.logIn)
         var singUpLayout = findViewById<LinearLayout>(R.id.singUpLayout)
         var logInLayout = findViewById<LinearLayout>(R.id.logInLayout)
+
+        var faceBookLink:ImageView = findViewById(R.id.link_fb)
+        faceBookLink.setOnClickListener {
+            //LogIn to FaceBook
+            val openURL = Intent(Intent.ACTION_VIEW)
+            openURL.data = Uri.parse("https://www.facebook.com/")
+            startActivity(openURL)
+
+        }
+
+       var googleLink:ImageView = findViewById(R.id.link_google)
+        googleLink.setOnClickListener {
+            //LogIn to FaceBook
+            val openURL = Intent(Intent.ACTION_VIEW)
+            openURL.data = Uri.parse("https://www.google.com/")
+            startActivity(openURL)
+
+        }
+
+      var twitterLink:ImageView = findViewById(R.id.link_twitter)
+        twitterLink.setOnClickListener {
+            //LogIn to FaceBook
+            val openURL = Intent(Intent.ACTION_VIEW)
+            openURL.data = Uri.parse("https://www.twitter.com/")
+            startActivity(openURL)
+
+        }
+
 
         signUp.setOnClickListener {
             viewModel.changeToggle("SignUp")
@@ -68,7 +111,7 @@ class MainActivity : AppCompatActivity() {
         val context = this.applicationContext
 
 
-
+        initViewModel()
 
 
         lifecycleScope.launch(){
@@ -77,15 +120,20 @@ class MainActivity : AppCompatActivity() {
 
                 when (event) {
                     is SignInValidationViewModel.ValidationEvent.Success -> {
-                        Toast.makeText(
-                            context,
-                            "Registration successful",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        Log.i("tag","======="+viewModelValidation.state.email.toString())
+                        if(checkForInternet(applicationContext)){
+                             getUserFROMAPI(viewModelValidation.state.email.toString(),viewModelValidation.state.password.toString())
+                        } else{
+                            Toast.makeText( context,"Check db, No Internet Connection", Toast.LENGTH_LONG ).show()
+                        }
                     }
                 }
             }
         }
+
+
+
+
 
         var edEmail = findViewById<EditText>(R.id.edMail)
             edEmail.setText(viewModelValidation.state.email.toString())
@@ -181,5 +229,67 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    }
+
+    fun initViewModel(){
+        userLogInViewModel = ViewModelProvider(this).get(UserLogInViewModel::class.java)
+        userLogInViewModel.getUserDetailsObserver().observe(this, Observer {
+            if (it != null){
+                Toast.makeText(this.applicationContext,
+                    "Registration successful",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else{
+                Toast.makeText(this.applicationContext,
+                    "Registration unsuccessful",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        })
+
+    }
+
+  private  fun getUserFROMAPI(email:String,password:String){
+        userLogInViewModel.getUserDetails(email,password)
+    }
+
+
+    private fun checkForInternet(context: Context): Boolean {
+
+        // register activity with the connectivity manager service
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        // if the android version is equal to M
+        // or greater we need to use the
+        // NetworkCapabilities to check what type of
+        // network has the internet connection
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            // Returns a Network object corresponding to
+            // the currently active default data network.
+            val network = connectivityManager.activeNetwork ?: return false
+
+            // Representation of the capabilities of an active network.
+            val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+            return when {
+                // Indicates this network uses a Wi-Fi transport,
+                // or WiFi has network connectivity
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+
+                // Indicates this network uses a Cellular transport. or
+                // Cellular has network connectivity
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+
+                // else return false
+                else -> false
+            }
+        } else {
+            // if the android version is below M
+            @Suppress("DEPRECATION") val networkInfo =
+                connectivityManager.activeNetworkInfo ?: return false
+            @Suppress("DEPRECATION")
+            return networkInfo.isConnected
+        }
     }
 }
