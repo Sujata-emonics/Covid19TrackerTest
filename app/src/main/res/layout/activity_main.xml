@@ -153,8 +153,9 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
+                    android:id="@+id/linkForgotPassword"
                     android:textSize="11sp"
-                    android:text="Forget Password?"
+                    android:text="@string/hint_forgotPassword"
                     android:textAlignment="textEnd"
                     android:textColor="#616161"
                     android:textStyle="normal"
@@ -196,7 +197,7 @@
                         android:layout_height="wrap_content"
                         />
                     <TextView
-                        android:id="@+id/edPasswordErrorSignUP"
+                        android:id="@+id/edEmailErrorSignUP"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -224,6 +225,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         />
+                    <TextView
+                        android:id="@+id/edPasswordErrorSignUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -251,7 +256,7 @@
                         android:layout_height="wrap_content"
                         />
                     <TextView
-                    android:id="@+id/edConfirmPwdErrorSignUP"
+                    android:id="@+id/edConfirmPasswordErrorSignUP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 </com.google.android.material.textfield.TextInputLayout>

@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Covid19TrackerTest"
         tools:targetApi="31">
         <activity
-            android:name=".activities.SecondActivity"
+            android:name=".activities.ForgotPassWordActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"

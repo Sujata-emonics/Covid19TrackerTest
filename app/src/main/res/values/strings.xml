@@ -4,4 +4,15 @@
     <string name="log_signUp">Sign Up</string>
     <string name="hint_email">Email</string>
     <string name="hint_pwd">Password</string>
+    <string name="hint_oldPwd">Previous Password</string>
+    <string name="hint_newPwd">New Password</string>
+    <string name="hint_forgotPassword">Forgot Password?</string>
+    <string name="msg_forgotPassWord">Password changed successfully. Back to SignIn</string>
+    <string name="msg_backToSignIn">Back to SignIn</string>
+    <string name="btn_forgotPassWord">Submit</string>
+    <string name="link_signIn">Go To SignIn</string>
+    <!--- FaceBook Link-->
+    <string name="facebook_app_id">1234</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">56789</string>
 </resources>
