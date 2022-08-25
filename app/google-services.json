@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "719673793478",
+    "firebase_url": "https://covidtracker-4c5e7-default-rtdb.firebaseio.com",
+    "project_id": "covidtracker-4c5e7",
+    "storage_bucket": "covidtracker-4c5e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719673793478:android:4bc13b9a204500fe3bf0c7",
+        "android_client_info": {
+          "package_name": "com.emonics.covid19trackertest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "719673793478-eph8nqbpi3t015cmimtjm353dkrofe61.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMawC8FN-5nJ9OYC4U5m3eHq6o5sU2bZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "719673793478-eph8nqbpi3t015cmimtjm353dkrofe61.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
