@@ -10,7 +10,6 @@ import androidx.lifecycle.viewModelScope
 import com.emonics.covid19trackertest.dataClass.ForgotPasswordFormState
 import com.emonics.covid19trackertest.dataClass.RegistrationFormState
 import com.emonics.covid19trackertest.helpers.validation.*
-import com.facebook.internal.instrument.ExceptionAnalyzer.execute
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch

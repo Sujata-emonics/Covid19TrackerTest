@@ -10,7 +10,8 @@ class RetroInstance {
 
     companion object{
         //val BASE_URL = "https://randomuser.me/"
-        val BASE_URL = "https://jsonplaceholder.typicode.com/"
+        //val BASE_URL = "https://jsonplaceholder.typicode.com/"
+        val BASE_URL = "https://covidtracker-4c5e7-default-rtdb.firebaseio.com/"
         fun getRetroInstance(): Retrofit {
             val logging = HttpLoggingInterceptor()
             logging.level = HttpLoggingInterceptor.Level.BODY

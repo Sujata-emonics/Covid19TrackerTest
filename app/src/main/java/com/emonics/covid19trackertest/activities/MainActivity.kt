@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
@@ -349,13 +350,16 @@ class MainActivity : AppCompatActivity() {
         userLogInViewModel = ViewModelProvider(this).get(UserLogInViewModel::class.java)
         userLogInViewModel.getUserDetailsObserver().observe(this, Observer {
             if (it != null){
-                Toast.makeText(this.applicationContext,
+                Log.i("tag_r"," ---sucees - "+it)
+               /* Toast.makeText(this.applicationContext,
                     "Registration successful",
                     Toast.LENGTH_LONG
-                ).show()
+                ).show()*/
+                initUpdateDBActivity()
+
             } else{
                 Toast.makeText(this.applicationContext,
-                    "Registration unsuccessful",
+                    "Registration unsuccessful, Invalid user",
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -366,6 +370,7 @@ class MainActivity : AppCompatActivity() {
     //Method to get userDetail from API
    private  fun getUserFROMAPI(email:String,password:String){
         userLogInViewModel.getUserDetails(email,password)
+        //if()
     }
 
     //Function check Internet connection
@@ -411,6 +416,11 @@ class MainActivity : AppCompatActivity() {
     fun initNewActivity(nextActivity: Class<ForgotPassWordActivity>){
         val intent = Intent(this, nextActivity).apply {
         }
+        startActivity(intent)
+    }
+    fun initUpdateDBActivity(){
+        val intent = Intent(this, UpdateDBActivity::class.java)
+        //val intent = Intent(this, ForgotPassWordActivity::class.java)
         startActivity(intent)
     }
 }
