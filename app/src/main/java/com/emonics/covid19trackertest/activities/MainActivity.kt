@@ -23,6 +23,7 @@ import com.emonics.covid19trackertest.dataClass.RegistrationFormState
 import com.emonics.covid19trackertest.helpers.dbHandler.DBApplication
 import com.emonics.covid19trackertest.helpers.validation.RegistrationFormEvent
 import com.emonics.covid19trackertest.viewModel.*
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.launch
 
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModelValidation:SignInValidationViewModel //ViewModel for the validations SignIn/SignUp page
     private lateinit var userLogInViewModel:UserLogInViewModel //ViewModel for the validations SignIn/SignUp page
     private lateinit var dataFromDBViewModel:DataFromDBViewModel //ViewModel for the validations SignIn/SignUp page
-
+    private var mAuth: FirebaseAuth? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -116,6 +117,7 @@ class MainActivity : AppCompatActivity() {
         /*---------------------------------------------*/
         /*-------*/
 
+        mAuth = FirebaseAuth.getInstance()
 
         //This code is when there is internet connection
         initViewModel()//Intialize the UserLogIN View Model
@@ -127,9 +129,31 @@ class MainActivity : AppCompatActivity() {
                        if(checkForInternet(applicationContext)){
                            //getting user data from API and validating
                             if(viewModelValidation.state.emailSignUp.toString()!=""&&viewModelValidation.state.passwordSignUp.toString()!=""){
-                                getUserFROMAPI(viewModelValidation.state.emailSignUp.toString(),viewModelValidation.state.passwordSignUp.toString())
+                                 var email = viewModelValidation.state.emailSignUp.toString()
+                                 var password  = viewModelValidation.state.passwordSignUp.toString()
+                                mAuth!!.createUserWithEmailAndPassword(email,password).addOnCompleteListener {
+                                    if(it.isSuccessful){
+                                        initUpdateDBActivity()
+                                    }else{
+                                        Toast.makeText(this@MainActivity,
+                                            it.exception.toString(),
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
+                                }
+
+                                //getUserFROMAPI(viewModelValidation.state.emailSignUp.toString(),viewModelValidation.state.passwordSignUp.toString())
                             } else {
-                                getUserFROMAPI(viewModelValidation.state.email.toString(),viewModelValidation.state.password.toString())
+                                var email = viewModelValidation.state.email.toString()
+                                var password  = viewModelValidation.state.password.toString()
+                                mAuth!!.signInWithEmailAndPassword(email,password).addOnCompleteListener {
+                                    if(it.isSuccessful) {
+                                        initUpdateDBActivity()
+                                    }else{
+                                        Toast.makeText(this@MainActivity,it.exception.toString(),Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            // getUserFROMAPI(viewModelValidation.state.email.toString(),viewModelValidation.state.password.toString())
                             }
                         } else{
                             //Getting user data from local db and validating
@@ -458,5 +482,13 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, UpdateDBActivity::class.java)
         //val intent = Intent(this, ForgotPassWordActivity::class.java)
         startActivity(intent)
+    }
+
+    //If the user is already logged In
+    override fun onStart(){
+        super.onStart()
+        if(mAuth!!.currentUser!=null){
+            initUpdateDBActivity()
+        }
     }
 }
