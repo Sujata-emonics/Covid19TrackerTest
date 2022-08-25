@@ -20,10 +20,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.emonics.covid19trackertest.R
 import com.emonics.covid19trackertest.dataClass.RegistrationFormState
+import com.emonics.covid19trackertest.helpers.dbHandler.DBApplication
 import com.emonics.covid19trackertest.helpers.validation.RegistrationFormEvent
-import com.emonics.covid19trackertest.viewModel.MainActivityViewModel
-import com.emonics.covid19trackertest.viewModel.SignInValidationViewModel
-import com.emonics.covid19trackertest.viewModel.UserLogInViewModel
+import com.emonics.covid19trackertest.viewModel.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.launch
 
@@ -32,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel:MainActivityViewModel //ViewModel handling the switch the option for signup/signIn
     private lateinit var viewModelValidation:SignInValidationViewModel //ViewModel for the validations SignIn/SignUp page
     private lateinit var userLogInViewModel:UserLogInViewModel //ViewModel for the validations SignIn/SignUp page
+    private lateinit var dataFromDBViewModel:DataFromDBViewModel //ViewModel for the validations SignIn/SignUp page
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,33 +117,32 @@ class MainActivity : AppCompatActivity() {
         /*-------*/
 
 
+        //This code is when there is internet connection
         initViewModel()//Intialize the UserLogIN View Model
-        //Code will execute Getting successs from the view after validation
+        //Code will execute Getting success from the view after validation
         lifecycleScope.launch(){
             viewModelValidation.validationEvents.collect { event ->
                 when (event) {
                     is SignInValidationViewModel.ValidationEvent.Success -> {
-                        if(checkForInternet(applicationContext)){
+                       if(checkForInternet(applicationContext)){
+                           //getting user data from API and validating
                             if(viewModelValidation.state.emailSignUp.toString()!=""&&viewModelValidation.state.passwordSignUp.toString()!=""){
                                 getUserFROMAPI(viewModelValidation.state.emailSignUp.toString(),viewModelValidation.state.passwordSignUp.toString())
                             } else {
                                 getUserFROMAPI(viewModelValidation.state.email.toString(),viewModelValidation.state.password.toString())
                             }
                         } else{
-                            //To do Implement functionality for getting userDetail from Database
-                            Toast.makeText( context,"Check db, No Internet Connection", Toast.LENGTH_LONG ).show()
+                            //Getting user data from local db and validating
+                            if(viewModelValidation.state.emailSignUp.toString()!=""&&viewModelValidation.state.passwordSignUp.toString()!=""){
+                                userDataFromDBViewModel(viewModelValidation.state.emailSignUp.toString(),viewModelValidation.state.passwordSignUp.toString())
+                            } else {
+                                userDataFromDBViewModel(viewModelValidation.state.email.toString(),viewModelValidation.state.password.toString())
+                            }
                         }
                     }
                 }
             }
         }
-
-
-        /* SignUp Functionality*/
-        //Intialize Email, password and confirm password for sign up page
-
-
-        /*-------End-------------*/
     }
 
 
@@ -370,8 +369,45 @@ class MainActivity : AppCompatActivity() {
     //Method to get userDetail from API
    private  fun getUserFROMAPI(email:String,password:String){
         userLogInViewModel.getUserDetails(email,password)
-        //if()
     }
+
+    //When there is no internet connection, the above code is executed to get data from local db and check for valid user
+    fun userDataFromDBViewModel(email:String,password:String){
+        var repository = (application as DBApplication).covidTrackerRepository
+        dataFromDBViewModel = ViewModelProvider(this, DataFromDBViewModelFactory(repository)).get(DataFromDBViewModel::class.java)
+        var validUser:Int
+        validUser = 0
+        dataFromDBViewModel.userRecordFromDb.observe(this, Observer {
+                it.forEachIndexed { index, user ->
+
+                    if((email == user?.email.toString()) && (user?.password.toString() == password) && (user?.is_active == 1)){
+                        validUser = 1
+                        Log.i("tag_r"," ---sucees - "+it)
+                        /* Toast.makeText(this.applicationContext,
+                             "Registration successful",
+                             Toast.LENGTH_LONG
+                         ).show()*/
+                        initUpdateDBActivity()
+                    }
+
+                }
+            if (validUser == 0){
+                Toast.makeText(this.applicationContext,
+                    "Registration unsuccessful, Invalid user",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                Toast.makeText(this.applicationContext,
+                    "Registration unsuccessful, Invalid user",
+                    Toast.LENGTH_LONG
+                ).show()
+
+            }
+
+        })
+
+    }
+
 
     //Function check Internet connection
     private fun checkForInternet(context: Context): Boolean {

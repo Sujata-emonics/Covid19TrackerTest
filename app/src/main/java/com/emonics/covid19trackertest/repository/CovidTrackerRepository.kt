@@ -23,7 +23,7 @@ class CovidTrackerRepository(
     val countryData:LiveData<List<Country>>
     get() = covidTrackerLiveData
 
-    //Store Country DEtails from API to database
+    //Store Country DEtails from API to country table
     suspend fun getCountryDatas(){
         if(Covid19TrackerUtility.checkForInternet(applicationContext)){
             val countryResult = apiInterFace.getCountryDetails()
@@ -44,6 +44,7 @@ class CovidTrackerRepository(
    private val cityLiveData = MutableLiveData<List<City>>()
     val cityData:LiveData<List<City>>
     get() = cityLiveData
+    //Code is for inserting record in City table
     suspend fun storeCityDetail(){
          if(Covid19TrackerUtility.checkForInternet(applicationContext)){
             val cityListFromAPI = apiInterFace.getCityDetail()
@@ -64,7 +65,7 @@ class CovidTrackerRepository(
     private val globalLiveData = MutableLiveData<Global>()
     val globalData:LiveData<Global>
         get() = globalLiveData
-
+    //Code is for inserting record in Global table
     suspend fun storeGlobalDetail(){
         //Log.i("tag","-inside global function -")
         if(Covid19TrackerUtility.checkForInternet(applicationContext)) {
@@ -91,6 +92,7 @@ class CovidTrackerRepository(
     val userDetail: LiveData<List<User>>
     get() = userLiveData
 
+    //Code is for inserting record in user table
     suspend fun storeUserDetail(){
         Log.i("log_u","-userDataFromApi-")
         if(Covid19TrackerUtility.checkForInternet(applicationContext)) {
@@ -105,6 +107,17 @@ class CovidTrackerRepository(
             val userRecord = covidTrackerDatabase.UserDao().getAllUsers()
             userLiveData.postValue(userRecord)
         }
+    }
+
+
+//Code is for getting record from user table
+    val userRecords = MutableLiveData<List<User>>()
+    val userRecordFromDb:LiveData<List<User>>
+    get() = userRecords
+     fun getUserDetailFromDB(){
+        Log.i("tag_u","-getUserDetailFromDB-")
+        var userDetails = covidTrackerDatabase.UserDao().getAllUsers()
+        userRecords.postValue(userDetails)
     }
 
 

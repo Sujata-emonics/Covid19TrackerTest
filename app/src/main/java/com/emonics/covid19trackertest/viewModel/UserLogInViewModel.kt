@@ -48,7 +48,8 @@ class UserLogInViewModel:ViewModel() {
                 if(response.isSuccessful){
 
                     response.body()?.forEachIndexed{index,data->
-                          if((email == data?.email.toString()) && (data?.password.toString() == password)){
+                          if((email == data?.email.toString()) && (data?.password.toString() == password)
+                              && (data?.is_active == 1)){
                              validUser = 1
                         }
                     }
