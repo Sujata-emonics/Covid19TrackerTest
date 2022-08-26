@@ -11,7 +11,7 @@ data class User(
     @ColumnInfo(name="user_name") val name:String?,
     @ColumnInfo(name="user_email") val email:String?,
     @ColumnInfo(name="user_password") val password:String,
-    @ColumnInfo(name="is_admin", defaultValue = "0") val is_admin:Int,
-    @ColumnInfo(name="is_active") val is_active:Int
+    @ColumnInfo(name="is_admin", defaultValue = "0") val isAdmin:Int,
+    @ColumnInfo(name="is_active") val isActive:Int
 
 )

@@ -47,11 +47,11 @@ class UpdateDBActivity : AppCompatActivity() {
 
         })
 
-        databaseViewModel.userData.observe(this, Observer {
+        /*databaseViewModel.userData.observe(this, Observer {
             it.forEach{
                 Log.i("tag_db","user "+it.name)
 
             }
-        })
+        })*/
     }
 }

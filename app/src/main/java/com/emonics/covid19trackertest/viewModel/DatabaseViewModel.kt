@@ -17,7 +17,7 @@ class DatabaseViewModel(private val covidTrackerRepository:CovidTrackerRepositor
             covidTrackerRepository.getCountryDatas()
             covidTrackerRepository.storeCityDetail()
             covidTrackerRepository.storeGlobalDetail()
-            covidTrackerRepository.storeUserDetail()
+           // covidTrackerRepository.storeUserDetail()
         }
     }
 
@@ -30,6 +30,6 @@ class DatabaseViewModel(private val covidTrackerRepository:CovidTrackerRepositor
     val globalData:LiveData<Global>
     get() = covidTrackerRepository.globalData
 
-    val userData:LiveData<List<User>>
-    get() = covidTrackerRepository.userDetail
+   /* val userData:LiveData<List<User>>
+    get() = covidTrackerRepository.userDetail*/
 }

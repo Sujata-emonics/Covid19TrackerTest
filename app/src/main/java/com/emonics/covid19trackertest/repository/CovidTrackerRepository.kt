@@ -2,6 +2,7 @@ package com.emonics.covid19trackertest.repository
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emonics.covid19trackertest.Room.CovidTrackerDatabase
@@ -11,6 +12,8 @@ import com.emonics.covid19trackertest.dataClass.Global
 import com.emonics.covid19trackertest.dataClass.User
 import com.emonics.covid19trackertest.helpers.retrofit.RetroServiceDbUpdateInterface
 import com.emonics.covid19trackertest.util.Covid19TrackerUtility
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 
 class CovidTrackerRepository(
     private val apiInterFace: RetroServiceDbUpdateInterface,
@@ -119,6 +122,25 @@ class CovidTrackerRepository(
         var userDetails = covidTrackerDatabase.UserDao().getAllUsers()
         userRecords.postValue(userDetails)
     }
+
+
+    //Code to send mail for forgot password
+    val isMailSent= MutableLiveData<String>("")
+    val emailLiveData:LiveData<String>
+    get() =isMailSent
+    suspend fun sendMailForForgotPassword(auth: FirebaseAuth, emailEntered: String) {
+        Log.d("tag_", "Email sent"+emailEntered)
+        auth!!.sendPasswordResetEmail(emailEntered.toString())
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("tag_", "Email sent.$emailEntered")
+                    isMailSent.postValue("success")
+                } else {  isMailSent.postValue("") }
+
+                }
+            }
+
+
 
 
 }

@@ -20,10 +20,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.emonics.covid19trackertest.R
 import com.emonics.covid19trackertest.dataClass.RegistrationFormState
+import com.emonics.covid19trackertest.dataClass.User
 import com.emonics.covid19trackertest.helpers.dbHandler.DBApplication
 import com.emonics.covid19trackertest.helpers.validation.RegistrationFormEvent
 import com.emonics.covid19trackertest.viewModel.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.launch
 
@@ -34,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userLogInViewModel:UserLogInViewModel //ViewModel for the validations SignIn/SignUp page
     private lateinit var dataFromDBViewModel:DataFromDBViewModel //ViewModel for the validations SignIn/SignUp page
     private var mAuth: FirebaseAuth? = null
+    private lateinit var firebaseDatabaseReference: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -82,7 +86,7 @@ class MainActivity : AppCompatActivity() {
 
         linkForgotPassword.setOnClickListener {
             var forgotPassWordActivity = ForgotPassWordActivity::class.java
-           initNewActivity(forgotPassWordActivity)
+             initNewActivity()
         }
         /* --------------------- */
 
@@ -133,6 +137,17 @@ class MainActivity : AppCompatActivity() {
                                  var password  = viewModelValidation.state.passwordSignUp.toString()
                                 mAuth!!.createUserWithEmailAndPassword(email,password).addOnCompleteListener {
                                     if(it.isSuccessful){
+                                        //
+                                        // Write a message to the database
+                                        val firebaseDatabaseReference = FirebaseDatabase.getInstance().getReference("User")
+                                        Log.i("tag_","firebaseDatabaseReference"+firebaseDatabaseReference)
+
+                                        //var indexId = firebaseDatabaseReference.child("/User") //.push().key!!
+                                        //var indexId = firebaseDatabaseReference.child("/") //.push().key!!
+
+                                        //Log.i("tag_","firebaseDatabaseReference"+indexId)
+                                        var User = User(0, "test user",email,password,1,1)
+                                        firebaseDatabaseReference.child("user").setValue(User)
                                         initUpdateDBActivity()
                                     }else{
                                         Toast.makeText(this@MainActivity,
@@ -404,7 +419,7 @@ class MainActivity : AppCompatActivity() {
         dataFromDBViewModel.userRecordFromDb.observe(this, Observer {
                 it.forEachIndexed { index, user ->
 
-                    if((email == user?.email.toString()) && (user?.password.toString() == password) && (user?.is_active == 1)){
+                    if((email == user?.email.toString()) && (user?.password.toString() == password) && (user?.isActive == 1)){
                         validUser = 1
                         Log.i("tag_r"," ---sucees - "+it)
                         /* Toast.makeText(this.applicationContext,
@@ -473,9 +488,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun initNewActivity(nextActivity: Class<ForgotPassWordActivity>){
-        val intent = Intent(this, nextActivity).apply {
-        }
+    fun initNewActivity(){
+        val intent = Intent(this, ForgotPassWordActivity::class.java)
         startActivity(intent)
     }
     fun initUpdateDBActivity(){
