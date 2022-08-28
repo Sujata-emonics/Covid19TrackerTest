@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName="country_table", indices = [Index(value = ["country_name"], unique = true)])
 data class Country(
     @PrimaryKey(autoGenerate = true) var PK_CountryID:Int,
-    @ColumnInfo(name="country_name") var  name:String?,
+    @ColumnInfo(name="country_name") var  country_name:String?,
     @ColumnInfo(name="confirmed_cases") var confirmed_cases:Int?,
     @ColumnInfo(name="active_cases") var active_cases:Int?,
     @ColumnInfo(name="recovered_cases") var recovered_cases:Int?,

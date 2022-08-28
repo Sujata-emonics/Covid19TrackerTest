@@ -148,7 +148,8 @@ class MainActivity : AppCompatActivity() {
                                         //Log.i("tag_","firebaseDatabaseReference"+indexId)
                                         var User = User(0, "test user",email,password,1,1)
                                         firebaseDatabaseReference.child("user").setValue(User)
-                                        initUpdateDBActivity()
+                                       // initUpdateDBActivity()
+                                        initCityListViewActivity()
                                     }else{
                                         Toast.makeText(this@MainActivity,
                                             it.exception.toString(),
@@ -163,7 +164,8 @@ class MainActivity : AppCompatActivity() {
                                 var password  = viewModelValidation.state.password.toString()
                                 mAuth!!.signInWithEmailAndPassword(email,password).addOnCompleteListener {
                                     if(it.isSuccessful) {
-                                        initUpdateDBActivity()
+                                       // initUpdateDBActivity()
+                                        initCityListViewActivity()
                                     }else{
                                         Toast.makeText(this@MainActivity,it.exception.toString(),Toast.LENGTH_SHORT).show()
                                     }
@@ -393,7 +395,8 @@ class MainActivity : AppCompatActivity() {
                     "Registration successful",
                     Toast.LENGTH_LONG
                 ).show()*/
-                initUpdateDBActivity()
+               // initUpdateDBActivity()
+                initCityListViewActivity()
 
             } else{
                 Toast.makeText(this.applicationContext,
@@ -426,7 +429,8 @@ class MainActivity : AppCompatActivity() {
                              "Registration successful",
                              Toast.LENGTH_LONG
                          ).show()*/
-                        initUpdateDBActivity()
+                       //initUpdateDBActivity()
+                        initCityListViewActivity()
                     }
 
                 }
@@ -493,7 +497,15 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
     fun initUpdateDBActivity(){
-        val intent = Intent(this, UpdateDBActivity::class.java)
+         val intent = Intent(this, UpdateDBActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun initCityListViewActivity(){
+        val intent = Intent(this, CityResultActivity::class.java)
+        var CountryName="India"
+        intent.putExtra("Country",CountryName)
+        //val intent = Intent(this, UpdateDBActivity::class.java)
         //val intent = Intent(this, ForgotPassWordActivity::class.java)
         startActivity(intent)
     }
@@ -502,7 +514,8 @@ class MainActivity : AppCompatActivity() {
     override fun onStart(){
         super.onStart()
         if(mAuth!!.currentUser!=null){
-            initUpdateDBActivity()
+           // initUpdateDBActivity()
+            initCityListViewActivity()
         }
     }
 }

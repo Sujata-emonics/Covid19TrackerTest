@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
+        android:name=".helpers.dbHandler.DBApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,16 +16,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".helpers.dbHandler.DBApplication"
         android:theme="@style/Theme.Covid19TrackerTest"
         tools:targetApi="31">
         <activity
+            android:name=".activities.CityResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ForgotPassWordActivity"
             android:exported="false" />
-    <activity
+        <activity
             android:name=".activities.UpdateDBActivity"
             android:exported="false" />
-         <activity
+        <activity
             android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
@@ -33,19 +36,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity
-            android:name=".activities.MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.UpdateDBActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>-->
-
     </application>
 
 </manifest>

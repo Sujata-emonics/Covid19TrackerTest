@@ -8,6 +8,8 @@ interface CityDao {
     fun getAllCities():List<City>
     @Query("SELECT * FROM city_table WHERE PK_CityID LIKE :cityId LIMIT 1")
     suspend fun findByCityId(cityId: Int):City
+    @Query("SELECT * FROM city_table WHERE country_name LIKE :countryName")
+    suspend fun findByCountryName(countryName: String):List<City>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(city:List<City>?)
     @Delete

@@ -141,6 +141,88 @@ class CovidTrackerRepository(
             }
 
 
+    val citiList = MutableLiveData<List<City>>()
+    val citiListLiveData:LiveData<List<City>>
+    get() = citiList
+    val errorMessageMutableData = MutableLiveData<String>()
+    val errorMessageLiveData: LiveData<String>
+    get() = errorMessageMutableData
+
+    suspend fun getAllcities(countrySelected:String) {
+        if(Covid19TrackerUtility.checkForInternet(applicationContext)) {
+            val cityRecords = apiInterFace.getCityDetail()
+            if(cityRecords.body() != null){
+                var citiesForCountry= cityRecords.body()!!.filter {
+                    it.country== countrySelected
+                }
+                citiList.postValue(citiesForCountry)
+            } else{
+                errorMessageMutableData.postValue("API Error")
+            }
+        }  else{
+            val cityRecords = covidTrackerDatabase.CityDao().findByCountryName(countrySelected)
+            if(cityRecords != null) {
+                citiList.postValue(cityRecords)
+            }else{
+                errorMessageMutableData.postValue("Database Error")
+            }
+        }
+    }
+
+    val countryListMutableData = MutableLiveData<Country>()
+    val countryListLiveData:LiveData<Country>
+    get() = countryListMutableData
+
+    val ErrorMsgMutableData = MutableLiveData<String>()
+    val errorMessageCountryLiveData:LiveData<String>
+    get() = ErrorMsgMutableData
+
+    suspend fun getCountryBasedOnName(countrySelected:String) {
+        if(Covid19TrackerUtility.checkForInternet(applicationContext)) {
+            if(apiInterFace.getCountryDetails().body()!= null){
+                Log.i("tag_","INSIDE country "+apiInterFace.getCountryDetails().body())
+                var countryResult = apiInterFace.getCountryDetails()!!.body()!!.filter {
+                    it.country_name == countrySelected
+                }
+                Log.i("tag_","countryResult "+countryResult[0])
+                countryListMutableData.postValue(countryResult[0])
+            }else{
+                ErrorMsgMutableData.postValue("API connection Error")
+            }
+
+        }  else{
+           /* if(covidTrackerDatabase.CountryDao().findByCountryName(countrySelected)!=null){
+                countryListMutableData.postValue(covidTrackerDatabase.CountryDao().findByCountryName(countrySelected))
+            }else{
+                ErrorMsgMutableData.postValue("API connection Error")
+            }*/
+        }
+    }
+    val globalMutableData = MutableLiveData<Global>()
+    val globalLiveRecord:LiveData<Global>
+    get() =globalMutableData
+
+    val ErrorMsgGlobalMutableData = MutableLiveData<String>()
+    val errorMessageGlobalLiveData:LiveData<String>
+        get() = ErrorMsgGlobalMutableData
+
+    suspend fun getGlobalRecord() {
+        if(Covid19TrackerUtility.checkForInternet(applicationContext)) {
+           if(apiInterFace.getGlobalData().body()!=null){
+               globalMutableData.postValue(apiInterFace.getGlobalData().body())
+           }else{
+               ErrorMsgGlobalMutableData.postValue("API connection Error")
+           }
+         }  else {
+             if(covidTrackerDatabase.GlobalDao().getAllGlobalData()!=null){
+                 globalMutableData.postValue(covidTrackerDatabase.GlobalDao().getAllGlobalData())
+             }else{
+                 ErrorMsgGlobalMutableData.postValue("Database connection Error")
+             }
+
+        }
+
+        }
 
 
 }

@@ -9,6 +9,8 @@ interface CountryDao {
     fun getAllCountry():List<Country>
     @Query("SELECT * FROM country_table WHERE PK_CountryID LIKE :countryId LIMIT 1")
     suspend fun findByCountryID(countryId: Int): Country
+    @Query("SELECT * FROM country_table WHERE country_name LIKE :countryName")
+    suspend fun findByCountryName(countryName: String): Country
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCountry(country: List<Country>?)
     @Delete

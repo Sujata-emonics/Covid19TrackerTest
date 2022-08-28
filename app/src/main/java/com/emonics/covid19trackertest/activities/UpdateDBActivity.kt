@@ -27,7 +27,7 @@ class UpdateDBActivity : AppCompatActivity() {
         databaseViewModel.countries.observe(this, Observer {
             //Log.i("tag_db","on  create"+it.toString())
             it.forEach{
-                Log.i("tag_db","-country-"+it.name)
+                Log.i("tag_db","-country-"+it.country_name)
                 //covidTrackerDatabase.Inse
             }
         }

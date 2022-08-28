@@ -12,6 +12,7 @@
     <string name="msg_backToSignIn">Back to SignIn</string>
     <string name="btn_forgotPassWord">Send Mail</string>
     <string name="link_signIn">Go To SignIn</string>
+    <string name="txt_global">Global Record</string>
     <!--- FaceBook Link-->
     <string name="facebook_app_id">1234</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
