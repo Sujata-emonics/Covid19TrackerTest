@@ -1,9 +1,14 @@
 package com.emonics.covid19trackertest.util
 
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.util.Log
+import androidx.core.content.ContextCompat.startActivity
+import com.emonics.covid19trackertest.activities.MainActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class Covid19TrackerUtility {
     companion object{
@@ -46,6 +51,7 @@ class Covid19TrackerUtility {
                 return networkInfo.isConnected
             }
         }
+
 
     }
 }

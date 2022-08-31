@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".activities.UpdateDBActivity">
     <TextView
+        android:id="@+id/tvMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello"
-        tools:ignore="MissingConstraints"></TextView>
+        android:text="Database updated successfully."
+        android:textStyle="bold"
+        android:padding="20dp"
+        android:textColor="@color/toggle_blue"></TextView>
+    <TextView
+        android:id="@+id/tvViewGlobalRecord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Global Record"
+        android:padding="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/toggle_blue"></TextView>
+    <TextView
+        android:id="@+id/tvPrevious"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:textStyle="bold"
+        android:padding="20dp"
+        android:textColor="@color/toggle_blue"></TextView>
+    <TextView
+        android:id="@+id/tvSignOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:textStyle="bold"
+        android:padding="20dp"
+        android:textColor="@color/toggle_blue"></TextView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

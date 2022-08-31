@@ -149,7 +149,8 @@ class MainActivity : AppCompatActivity() {
                                         var User = User(0, "test user",email,password,1,1)
                                         firebaseDatabaseReference.child("user").setValue(User)
                                        // initUpdateDBActivity()
-                                        initCityListViewActivity()
+                                       // initCityListViewActivity()
+                                        initAdminActivity()
                                     }else{
                                         Toast.makeText(this@MainActivity,
                                             it.exception.toString(),
@@ -165,7 +166,8 @@ class MainActivity : AppCompatActivity() {
                                 mAuth!!.signInWithEmailAndPassword(email,password).addOnCompleteListener {
                                     if(it.isSuccessful) {
                                        // initUpdateDBActivity()
-                                        initCityListViewActivity()
+                                       // initCityListViewActivity()
+                                        initAdminActivity()
                                     }else{
                                         Toast.makeText(this@MainActivity,it.exception.toString(),Toast.LENGTH_SHORT).show()
                                     }
@@ -396,7 +398,8 @@ class MainActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()*/
                // initUpdateDBActivity()
-                initCityListViewActivity()
+               // initCityListViewActivity()
+                initAdminActivity()
 
             } else{
                 Toast.makeText(this.applicationContext,
@@ -430,7 +433,8 @@ class MainActivity : AppCompatActivity() {
                              Toast.LENGTH_LONG
                          ).show()*/
                        //initUpdateDBActivity()
-                        initCityListViewActivity()
+                       // initCityListViewActivity()
+                        initAdminActivity()
                     }
 
                 }
@@ -509,13 +513,19 @@ class MainActivity : AppCompatActivity() {
         //val intent = Intent(this, ForgotPassWordActivity::class.java)
         startActivity(intent)
     }
+    fun initAdminActivity(){
+        val intent = Intent(this, AdminActivity::class.java)
+
+        startActivity(intent)
+    }
 
     //If the user is already logged In
     override fun onStart(){
         super.onStart()
         if(mAuth!!.currentUser!=null){
            // initUpdateDBActivity()
-            initCityListViewActivity()
+           // initCityListViewActivity()
+            initAdminActivity()
         }
     }
 }

@@ -12,6 +12,8 @@ interface CityDao {
     suspend fun findByCountryName(countryName: String):List<City>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(city:List<City>?)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertsingleRecord(city: City) : Long
     @Delete
     suspend fun delete(city: City)
     @Query("DELETE FROM city_table")

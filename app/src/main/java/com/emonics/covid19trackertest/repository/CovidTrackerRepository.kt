@@ -1,11 +1,14 @@
 package com.emonics.covid19trackertest.repository
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emonics.covid19trackertest.Room.CovidTrackerDatabase
+import com.emonics.covid19trackertest.activities.MainActivity
 import com.emonics.covid19trackertest.dataClass.City
 import com.emonics.covid19trackertest.dataClass.Country
 import com.emonics.covid19trackertest.dataClass.Global
@@ -148,9 +151,10 @@ class CovidTrackerRepository(
     val errorMessageLiveData: LiveData<String>
     get() = errorMessageMutableData
 
-    suspend fun getAllcities(countrySelected:String) {
+    suspend fun getAllcitiesBasedonCountry(countrySelected:String) {
         if(Covid19TrackerUtility.checkForInternet(applicationContext)) {
             val cityRecords = apiInterFace.getCityDetail()
+            Log.i("tag_","INSIDE cityRecords "+cityRecords)
             if(cityRecords.body() != null){
                 var citiesForCountry= cityRecords.body()!!.filter {
                     it.country== countrySelected
@@ -181,21 +185,22 @@ class CovidTrackerRepository(
         if(Covid19TrackerUtility.checkForInternet(applicationContext)) {
             if(apiInterFace.getCountryDetails().body()!= null){
                 Log.i("tag_","INSIDE country "+apiInterFace.getCountryDetails().body())
+                Log.i("tag_","countrySelected country "+countrySelected)
                 var countryResult = apiInterFace.getCountryDetails()!!.body()!!.filter {
                     it.country_name == countrySelected
                 }
-                Log.i("tag_","countryResult "+countryResult[0])
+                Log.i("tag_","countryResult "+countryResult)
                 countryListMutableData.postValue(countryResult[0])
             }else{
                 ErrorMsgMutableData.postValue("API connection Error")
             }
 
         }  else{
-           /* if(covidTrackerDatabase.CountryDao().findByCountryName(countrySelected)!=null){
+            if(covidTrackerDatabase.CountryDao().findByCountryName(countrySelected)!=null){
                 countryListMutableData.postValue(covidTrackerDatabase.CountryDao().findByCountryName(countrySelected))
             }else{
                 ErrorMsgMutableData.postValue("API connection Error")
-            }*/
+            }
         }
     }
     val globalMutableData = MutableLiveData<Global>()
@@ -223,6 +228,244 @@ class CovidTrackerRepository(
         }
 
         }
+
+    val countryListForAdmin = MutableLiveData<List<Country>>()
+    val liveCountryListForAdmin:LiveData<List<Country>>
+        get() =countryListForAdmin
+
+    val errorMsgCountryListForAdmin = MutableLiveData<String>()
+    val errorMsgCountryListLiveDataForAdmin:LiveData<String>
+        get() = errorMsgCountryListForAdmin
+    suspend fun getAllCountry(){
+        if(Covid19TrackerUtility.checkForInternet(applicationContext)) {
+            if(apiInterFace.getCountryDetails().body()!= null){
+                Log.i("tag_","INSIDE country "+apiInterFace.getCountryDetails().body())
+                countryListForAdmin.postValue(apiInterFace.getCountryDetails().body())
+            }else{
+                errorMsgCountryListForAdmin.postValue("API connection Error")
+            }
+
+        }  else{
+            if(covidTrackerDatabase.CountryDao().getAllCountry()!=null){
+                countryListForAdmin.postValue(covidTrackerDatabase.CountryDao().getAllCountry())
+            }else{
+                errorMsgCountryListForAdmin.postValue("API connection Error")
+            }
+        }
+
+    }
+
+
+
+
+    val countryListSpinnerForAdmin = MutableLiveData<List<Country>>()
+    val liveCountryListSpinnerForAdmin:LiveData<List<Country>>
+        get() =countryListSpinnerForAdmin
+
+    var cityListSpinnerForAdmin = MutableLiveData<List<City>>()
+    val liveCityListSpinnerForAdmin:LiveData<List<City>>
+        get() =cityListSpinnerForAdmin
+
+    val errorMsgCountryListSpinnerForAdmin = MutableLiveData<String>()
+    val errorMsgCountryListLiveDataSpinnerForAdmin:LiveData<String>
+        get() = errorMsgCountryListSpinnerForAdmin
+    suspend fun getAllCountryCityForSpinner(countrySelected: String = ""){
+        if(Covid19TrackerUtility.checkForInternet(applicationContext)) {
+            if(apiInterFace.getCountryDetails().body()!= null){
+                Log.i("tag_","INSIDE country "+apiInterFace.getCountryDetails().body())
+                countryListSpinnerForAdmin.postValue(apiInterFace.getCountryDetails().body())
+                //var cityForSelectedCountry = getAllcitiesBasedonCountry(apiInterFace.getCountryDetails().body()!![0].country_name.toString())
+                if(countrySelected!="") {
+                    val cityRecords = apiInterFace.getCityDetail()
+                    if (cityRecords.body() != null) {
+                        var citiesForCountry = cityRecords.body()!!.filter {
+                            if (countrySelected != "") {
+                                it.country == countrySelected
+                            } else {
+                                it.country == apiInterFace.getCountryDetails()
+                                    .body()!![0].country_name.toString()
+                            }
+
+                        }
+                        cityListSpinnerForAdmin.postValue(citiesForCountry)
+                        Log.i("tag_", "cityListSpinnerForAdmin" + citiesForCountry)
+                    }
+                }
+
+                //Log.i("tag_","cityListSpinnerForAdmin" +apiInterFace.getCountryDetails().body()!![0].country_name.toString())
+
+            }else{
+                errorMsgCountryListSpinnerForAdmin.postValue("API connection Error")
+            }
+        }  else{
+            if(covidTrackerDatabase.CountryDao().getAllCountry()!=null){
+                countryListSpinnerForAdmin.postValue(covidTrackerDatabase.CountryDao().getAllCountry())
+                var cityForSelectedCountry = if(countrySelected!=""){
+                    covidTrackerDatabase.CityDao().findByCountryName(countrySelected)
+                }else{covidTrackerDatabase.CityDao().findByCountryName(covidTrackerDatabase.CountryDao().getAllCountry()!![0].country_name.toString())}
+                cityListSpinnerForAdmin.postValue(cityForSelectedCountry)
+
+            }else{
+                errorMsgCountryListSpinnerForAdmin.postValue("API connection Error")
+            }
+        }
+
+    }
+
+
+    val cityListSpinnerForAdminBasedonCountry = MutableLiveData<List<String>>()
+    val liveCityListSpinnerForAdminBasedonCountry:LiveData<List<String>>
+        get() =cityListSpinnerForAdminBasedonCountry
+
+
+    suspend fun getCitiBasedOnCountrySpinner(countrySelected:String){
+        Log.i("tag_","getCitiBasedOnCountrySpinner" +countrySelected)
+        var cityList = ArrayList<String>()
+        var citiesForCountry = ArrayList<String>()
+        val cityRecords = apiInterFace.getCityDetail()
+        if(cityRecords.body() != null){
+           cityRecords.body()!!.forEach {
+               if(it.country == countrySelected){
+                   citiesForCountry.add(it.name.toString())
+               }
+           }
+            cityListSpinnerForAdminBasedonCountry.postValue(citiesForCountry)
+            //cityListSpinnerForAdmin.postValue(citiesForCountry)
+            Log.i("tag_","cityListSpinnerForAdmin1233" +citiesForCountry)
+        }
+
+}
+
+//===========
+suspend fun getAllCountrySpinner(): ArrayList<String> {
+    var countryList = ArrayList<String>()
+    if(Covid19TrackerUtility.checkForInternet(applicationContext)) {
+        if(apiInterFace.getCountryDetails().body()!= null){
+
+             apiInterFace.getCountryDetails().body()!!.forEach { country->
+                countryList.add(country.country_name.toString()) }
+            Log.i("tag_","countryList1 "+countryList)
+            return countryList
+
+          }else{
+            Log.i("tag_","countryList2 "+countryList)
+            return countryList
+        }
+    }  else{
+        if(covidTrackerDatabase.CountryDao().getAllCountry()!=null){
+            covidTrackerDatabase.CountryDao().getAllCountry().
+            forEach { country->countryList.add(country.country_name.toString()) }
+            Log.i("tag_","countryList3"+countryList)
+            return countryList
+            }else{
+            Log.i("tag_","countryList41 "+countryList)
+            return countryList
+            }
+        }
+    }
+
+
+    suspend fun getCitySpinner(countrySelected: String): ArrayList<String> {
+        var cityList = ArrayList<String>()
+        Log.i("tag_","getCitySpinner "+countrySelected)
+        if(Covid19TrackerUtility.checkForInternet(applicationContext)) {
+            if(apiInterFace.getCityDetail().body()!= null){
+                Log.i("tag_","getCitySpinner "+apiInterFace.getCityDetail().body())
+
+                apiInterFace.getCityDetail().body()!!.forEach { city->
+                    if(city.country == countrySelected){ cityList.add(city.name.toString())}
+                    }
+                Log.i("tag_","citylist 1 "+cityList)
+                return cityList
+
+            }else{
+                Log.i("tag_","cityList2 "+cityList)
+                return cityList
+            }
+        }  else{
+            if(covidTrackerDatabase.CityDao().findByCountryName(countrySelected)!=null){
+                covidTrackerDatabase.CityDao().findByCountryName(countrySelected).
+                forEach { city->cityList.add(city.name.toString()) }
+                Log.i("tag_","cityList3"+cityList)
+                return cityList
+            }else{
+                Log.i("tag_","cityList4 "+cityList)
+                return cityList
+            }
+        }
+    }
+
+
+
+    //
+    suspend fun insertCityRecordFromAdmin(city:City){
+        Log.i("tag_","insertCityRecordFromAdmin"+city)
+        covidTrackerDatabase.CityDao().insertsingleRecord(city)
+    }
+
+
+    //
+    suspend fun getCountryFRomCountryCitySpinner(): ArrayList<String> {
+        var countryList = ArrayList<String>()
+        if(Covid19TrackerUtility.checkForInternet(applicationContext)) {
+            Log.i("tag_","countryList1 "+apiInterFace.getCountryCity().body())
+            if(apiInterFace.getCountryCity().body()!= null){
+
+                apiInterFace.getCountryCity().body()!!.forEach { country->
+                    countryList.add(country.country.toString()) }
+                Log.i("tag_","countryList1 "+countryList)
+                return countryList
+
+            }else{
+                Log.i("tag_","countryList2 "+countryList)
+                return countryList
+            }
+        }  else{
+            if(covidTrackerDatabase.CountryCityDao().findAllCountry()!=null){
+                covidTrackerDatabase.CountryCityDao().findAllCountry().
+                forEach { country->countryList.add(country.toString()) }
+                Log.i("tag_","countryList3"+countryList)
+                return countryList
+            }else{
+                Log.i("tag_","countryList41 "+countryList)
+                return countryList
+            }
+        }
+    }
+
+    //====
+    suspend fun getCityFromCountryCitySpinner(countrySelected: String): ArrayList<String> {
+        Log.i("tag_","getCityFromCountryCitySpinner 1 "+apiInterFace.getCountryCity().body())
+        var cityList = ArrayList<String>()
+        if(Covid19TrackerUtility.checkForInternet(applicationContext)) {
+            Log.i("tag_","getCityFromCountryCitySpinner 1 "+apiInterFace.getCountryCity().body())
+            if(apiInterFace.getCountryCity().body()!= null){
+
+                apiInterFace.getCountryCity().body()!!.forEach { countryCity->
+                    if(countryCity.country.toString() == countrySelected){ cityList.add(countryCity.city.toString())}
+                }
+                Log.i("tag_","citylist 1 "+cityList)
+                return cityList
+
+            }else{
+                Log.i("tag_","cityList2 "+cityList)
+                return cityList
+            }
+        }  else{
+            if(covidTrackerDatabase.CountryCityDao().findByCountry(countrySelected)!=null){
+                Log.i("tag_","cityList3"+covidTrackerDatabase.CountryCityDao().findByCountry(countrySelected))
+                return cityList
+              //  covidTrackerDatabase.CountryCityDao().findByCountry(countrySelected).
+               // forEach { cityCountry->cityList.add(cityCountry!!.city!!.toString()) }
+                //Log.i("tag_","cityList3"+cityList)
+                return cityList
+            }else{
+                Log.i("tag_","cityList4 "+cityList)
+                return cityList
+            }
+        }
+    }
+
 
 
 }

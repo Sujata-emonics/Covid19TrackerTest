@@ -16,7 +16,7 @@ private var countrySelected:String):ViewModel() {
             //cityRecyclerViewModel.getGlobalRecord()
             //cityRecyclerViewModel.getAllCities()
             repository.getGlobalRecord()
-            repository.getAllcities(countrySelected)
+            repository.getAllcitiesBasedonCountry(countrySelected)
             repository.getCountryBasedOnName(countrySelected)
         }
 

@@ -13,13 +13,16 @@
         <entry key="app/src/main/res/drawable/ic_virus_background_background.xml" value="0.201" />
         <entry key="app/src/main/res/drawable/switch_track.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/switch_tumbs.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_admin.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_city_result.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_forgotpassword.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_new.xml" value="0.25104166666666666" />
         <entry key="app/src/main/res/layout/activity_second.xml" value="0.2520833333333333" />
-        <entry key="app/src/main/res/layout/activity_update_dbactivity.xml" value="0.23697916666666666" />
+        <entry key="app/src/main/res/layout/activity_update_dbactivity.xml" value="0.1" />
         <entry key="app/src/main/res/layout/adapter_city.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/soinner_city.xml" value="0.25104166666666666" />
+        <entry key="app/src/main/res/layout/spinner_right_aligned.xml" value="0.25104166666666666" />
       </map>
     </option>
   </component>

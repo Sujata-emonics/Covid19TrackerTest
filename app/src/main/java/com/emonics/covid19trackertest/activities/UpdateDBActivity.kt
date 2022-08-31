@@ -1,8 +1,10 @@
 package com.emonics.covid19trackertest.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emonics.covid19trackertest.R
@@ -13,6 +15,7 @@ import com.emonics.covid19trackertest.helpers.retrofit.RetroServiceInterFace
 import com.emonics.covid19trackertest.viewModel.DatabaseViewModel
 import com.emonics.covid19trackertest.viewModel.DatabaseViewModelFactory
 import com.emonics.covid19trackertest.viewModel.UserLogInViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 class UpdateDBActivity : AppCompatActivity() {
    private lateinit var databaseViewModel : DatabaseViewModel
@@ -53,5 +56,17 @@ class UpdateDBActivity : AppCompatActivity() {
 
             }
         })*/
+        findViewById<TextView>(R.id.tvPrevious).setOnClickListener {
+            finish()
+        }
+
+        findViewById<TextView>(R.id.tvSignOut).setOnClickListener {
+            var mAuth = FirebaseAuth.getInstance()
+            mAuth.signOut()
+
+            val intent= Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }

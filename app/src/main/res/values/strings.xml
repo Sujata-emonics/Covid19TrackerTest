@@ -13,6 +13,16 @@
     <string name="btn_forgotPassWord">Send Mail</string>
     <string name="link_signIn">Go To SignIn</string>
     <string name="txt_global">Global Record</string>
+    <string name="txt_SignOut">Sign Out</string>
+    <string name="txt_view_detail">View Detail</string>
+    <string name="txt_update_db">Update Database</string>
+    <string name="txt_country">Country</string>
+    <string name="txt_city">City</string>
+    <string name="txt_active_cases">Active Cases</string>
+    <string name="txt_confirmed_cases">Confirmed Cases</string>
+    <string name="txt_recovered_cases">Recovered Cases</string>
+    <string name="txt_death_cases">Death Cases</string>
+    <string name="common_test_cases">Test Cases</string>
     <!--- FaceBook Link-->
     <string name="facebook_app_id">1234</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
