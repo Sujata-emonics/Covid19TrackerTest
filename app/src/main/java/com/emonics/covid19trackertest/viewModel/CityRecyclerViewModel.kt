@@ -76,4 +76,5 @@ private var countrySelected:String):ViewModel() {
             globalErrorMessage.postValue("Error with Global API")
         }
     }*/
+
 }

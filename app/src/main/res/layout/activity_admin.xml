@@ -13,7 +13,7 @@
     android:id="@+id/linearLayout"
     android:gravity="center"
     tools:context=".activities.AdminActivity"
-    android:layout_margin="26dp">
+    android:layout_margin="10dp">
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -44,10 +44,33 @@
                 android:layout_weight="1"
                 android:text="@string/txt_global"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="16sp"
+                android:textColor="@color/toggle_blue"
                 android:paddingTop="40dp"
                 />
             <TextView
+                android:id="@+id/tvViewDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/txt_view_detail"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/toggle_blue"
+                android:paddingTop="20dp"
+                />
+            <TextView
+                android:id="@+id/tvUpdateDb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/txt_update_db"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/toggle_blue"
+                android:paddingTop="20dp"
+                />
+           <!-- <TextView
                 android:id="@+id/tvSignOut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,33 +81,14 @@
             android:textSize="18sp"
             android:paddingTop="40dp"
                 android:linksClickable="true"
-            />
+            />-->
         </LinearLayout>
-        <LinearLayout
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView
-                android:id="@+id/tvViewDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/txt_view_detail"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:paddingTop="20dp"
-                />
-            <TextView
-                android:id="@+id/tvUpdateDb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/txt_update_db"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:paddingTop="20dp"
-                />
-        </LinearLayout>
+
+        </LinearLayout>-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -210,36 +214,73 @@
                 android:text="@={myViewModel.inputTestCases}"
                 android:layout_weight="1"/>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="8dp"
-            android:orientation="horizontal">
-            <Button android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <Button
+                android:id="@+id/btnClearAll"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/btnSaveOrUpdate"
+                android:enabled="false"
+                android:text="@={myViewModel.clearAllButtonOrDeleteText}"
+                android:textColor="@color/white"
+
+                android:visibility="gone"></Button>
+
+            <Space
+                android:layout_width="wrap_content"
                 android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnSaveOrUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
                 android:onClick="@{()->myViewModel.saveOrUpdate()}"
                 android:text="@={myViewModel.saveOrUpdateButtonText}"
-                android:textColor="@color/white"
-                >
-            </Button>
-            <Space
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"/>
-            <Button android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btnClearAll"
-                android:layout_weight="1"
-              android:enabled="false"
-                android:text="@={myViewModel.clearAllButtonOrDeleteText}"
+                android:textColor="@color/white"></Button>
 
-                android:textColor="@color/white"
-                >
-            </Button>
+
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <TableRow>
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/tvSignOut"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|bottom"
+                        android:background="@color/white"
+                        android:src="@drawable/ic_logout"
+                        android:contentDescription="@string/covid_link"
+                        android:layout_margin="16dp" />
+                    <Space android:layout_height="match_parent"
+                        android:layout_width="100dp"></Space>
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:id="@+id/btnBack"
+                        android:layout_gravity="end|bottom"
+                        android:background="@color/white"
+                        android:src="@drawable/ic_back"
+                        android:contentDescription="@string/covid_link"
+                        android:layout_margin="16dp" />
+
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

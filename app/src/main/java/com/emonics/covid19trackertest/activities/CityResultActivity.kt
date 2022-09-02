@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -39,7 +40,11 @@ class CityResultActivity : AppCompatActivity() {
 
         binding.tvGlobalRecord.setOnClickListener {
             //
+            var intent = Intent(this,UpdateDBActivity::class.java)
+            startActivity(intent)
+
         }
+
         cityRecyclerViewModel.globalRecord.observe(this, Observer {
             binding.tvGlobalActiveCases.text = "Active Cases: "+it.global_active_cases.toString()
             binding.tvGlobalRecoveredCases.text = "Recovered Cases: "+it.global_recovered_cases.toString()
@@ -51,7 +56,8 @@ class CityResultActivity : AppCompatActivity() {
 
                 binding.tvCountryName.text = it.country_name.toString()
                 binding.tvCountryName.setOnClickListener {
-                    //
+                    var intent = Intent(this,UpdateDBActivity::class.java)
+                    startActivity(intent)
                 }
                 binding.tvCountryActiveCases.text = "Active Cases: "+it.active_cases.toString()
                 binding.tvCountryRecoveredCases.text = "Recovered Cases: "+it.recovered_cases.toString()

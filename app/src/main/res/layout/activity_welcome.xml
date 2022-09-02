@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.WelcomeActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/linearLayout"
+            android:gravity="center"
+            tools:context=".activities.WelcomeActivity"
+            android:layout_margin="26dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_covid_tracker"
+                android:layout_marginTop="25dp"
+                />
+            <TextView
+                android:text="@string/app_name"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold|normal|italic"
+                android:textColor="@color/darkerGrey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="20dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="18dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="8dp"
+                app:cardUseCompatPadding="true"
+                >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:orientation="vertical" android:padding="20dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_margin="20dp"
+                    android:linksClickable="true"
+                    android:text="@string/welcome_msg"/>
+                <TextView
+                    android:id="@+id/tvCovidGlobalLink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/toggle_blue"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:paddingTop="60dp"
+                    android:textColorLink="@color/toggle_blue"
+                    android:gravity="center"
+                    android:text="@string/covid_link"/>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                    <TableRow>
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/btnLogOut"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|bottom"
+                            android:background="@color/white"
+                            android:src="@drawable/ic_logout"
+                            android:contentDescription="@string/covid_link"
+                            android:layout_margin="16dp" />
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/btnAddCity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|bottom"
+                            android:background="@color/white"
+                            android:src="@drawable/ic_plus_btn"
+                            android:contentDescription="@string/covid_link"
+                            android:layout_margin="16dp" />
+                    </TableRow>
+                    </TableLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+</LinearLayout>

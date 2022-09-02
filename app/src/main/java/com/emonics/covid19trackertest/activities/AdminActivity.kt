@@ -84,6 +84,12 @@ class AdminActivity : AppCompatActivity() {
             adminVieModel.saveOrUpdate()
         }
 
+        dataBinding.btnBack.setOnClickListener {
+            Log.i("tag_","inside onclick")
+            //adminVieModel.saveOrUpdate()
+            finish()
+        }
+
 
         adminVieModel.message.observe(this, Observer {
             it.getContentIfNotHandled()?.let {

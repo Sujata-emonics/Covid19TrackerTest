@@ -4,11 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.runtime.sourceInformationMarkerStart
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emonics.covid19trackertest.Room.CovidTrackerDatabase
 import com.emonics.covid19trackertest.activities.MainActivity
+import com.emonics.covid19trackertest.activities.UpdateDBActivity
 import com.emonics.covid19trackertest.dataClass.City
 import com.emonics.covid19trackertest.dataClass.Country
 import com.emonics.covid19trackertest.dataClass.Global
@@ -152,7 +155,7 @@ class CovidTrackerRepository(
     get() = errorMessageMutableData
 
     suspend fun getAllcitiesBasedonCountry(countrySelected:String) {
-        if(Covid19TrackerUtility.checkForInternet(applicationContext)) {
+        if(!Covid19TrackerUtility.checkForInternet(applicationContext)) {
             val cityRecords = apiInterFace.getCityDetail()
             Log.i("tag_","INSIDE cityRecords "+cityRecords)
             if(cityRecords.body() != null){
@@ -270,6 +273,7 @@ class CovidTrackerRepository(
     val errorMsgCountryListLiveDataSpinnerForAdmin:LiveData<String>
         get() = errorMsgCountryListSpinnerForAdmin
     suspend fun getAllCountryCityForSpinner(countrySelected: String = ""){
+        Log.i("tag_","getAllCountryCityForSpinner "+Covid19TrackerUtility.checkForInternet(applicationContext))
         if(Covid19TrackerUtility.checkForInternet(applicationContext)) {
             if(apiInterFace.getCountryDetails().body()!= null){
                 Log.i("tag_","INSIDE country "+apiInterFace.getCountryDetails().body())
@@ -300,9 +304,11 @@ class CovidTrackerRepository(
         }  else{
             if(covidTrackerDatabase.CountryDao().getAllCountry()!=null){
                 countryListSpinnerForAdmin.postValue(covidTrackerDatabase.CountryDao().getAllCountry())
+                Log.i("tag_","countrySelected"+countrySelected)
                 var cityForSelectedCountry = if(countrySelected!=""){
                     covidTrackerDatabase.CityDao().findByCountryName(countrySelected)
                 }else{covidTrackerDatabase.CityDao().findByCountryName(covidTrackerDatabase.CountryDao().getAllCountry()!![0].country_name.toString())}
+                Log.i("tag_","cityForSelectedCountry"+cityForSelectedCountry)
                 cityListSpinnerForAdmin.postValue(cityForSelectedCountry)
 
             }else{
@@ -465,8 +471,6 @@ suspend fun getAllCountrySpinner(): ArrayList<String> {
             }
         }
     }
-
-
 
 }
 

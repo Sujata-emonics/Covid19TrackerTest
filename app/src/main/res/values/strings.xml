@@ -12,7 +12,7 @@
     <string name="msg_backToSignIn">Back to SignIn</string>
     <string name="btn_forgotPassWord">Send Mail</string>
     <string name="link_signIn">Go To SignIn</string>
-    <string name="txt_global">Global Record</string>
+    <string name="txt_global">Global</string>
     <string name="txt_SignOut">Sign Out</string>
     <string name="txt_view_detail">View Detail</string>
     <string name="txt_update_db">Update Database</string>
@@ -23,6 +23,9 @@
     <string name="txt_recovered_cases">Recovered Cases</string>
     <string name="txt_death_cases">Death Cases</string>
     <string name="common_test_cases">Test Cases</string>
+    <string name="welcome_msg">Welcome to the Covid Tracker App. Here you can view useful Covid19 updates!!</string>
+    <string name="covid_link">View Covid Tracker</string>
+    <string name="content_msg">Add City Record</string>
     <!--- FaceBook Link-->
     <string name="facebook_app_id">1234</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
