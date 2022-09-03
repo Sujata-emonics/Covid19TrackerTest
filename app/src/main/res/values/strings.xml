@@ -30,4 +30,15 @@
     <string name="facebook_app_id">1234</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
     <string name="facebook_client_token">56789</string>
+
+    //Adding Strings
+    <string name="active">Active</string>
+    <string name="recovered">Recovered</string>
+    <string name="total">Confirmed</string>
+    <string name="deaths">Deaths</string>
+    <string name="covid_19">Covid-19 Global</string>
+    <string name="country">Country</string>
+    <string name="cases">Cases</string>
+    <string name="increment_number">+232325</string>
+    <string name="number">2323236544</string>
 </resources>

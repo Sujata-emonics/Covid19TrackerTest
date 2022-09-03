@@ -124,4 +124,11 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+
+    implementation 'com.hbb20:ccp:2.5.1'
+    implementation 'com.github.blackfizz:eazegraph:1.2.2@aar'
+    implementation 'com.nineoldandroids:library:2.4.0'
+
+    implementation 'com.androidplot:androidplot-core:1.5.10'
+
 }
