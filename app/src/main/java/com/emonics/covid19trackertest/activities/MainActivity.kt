@@ -514,8 +514,8 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
     fun initAdminActivity(){
-        //val intent = Intent(this, WelcomeActivity::class.java)
-        val intent = Intent(this, DetailActivity::class.java)
+        val intent = Intent(this, WelcomeActivity::class.java)
+        //val intent = Intent(this, DetailActivity::class.java)
 
         startActivity(intent)
     }

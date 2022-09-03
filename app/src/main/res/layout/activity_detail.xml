@@ -24,9 +24,9 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tvGlobalRecord"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tvGlobalRecord"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
                     android:text="@string/covid_19"
@@ -70,134 +70,165 @@
 
                 </org.eazegraph.lib.charts.PieChart>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/viewbg"
-                    android:backgroundTint="@color/green">
-
-                </View>
-
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:text="@string/active"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:textStyle="bold">
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
 
-                </TextView>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:orientation="horizontal">
 
-            </LinearLayout>
+                        <View
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/viewbg"
+                            android:backgroundTint="@color/green">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
+                        </View>
 
-                <View
-                    android:layout_width="15dp"
-                    android:layout_height="16dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/viewbg"
-                    android:backgroundTint="@color/blue"></View>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:text="@string/active"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold">
 
-                <TextView
-                    android:layout_width="73dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:text="@string/recovered"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:textStyle="bold"></TextView>
+                        </TextView>
 
-            </LinearLayout>
+                    </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
 
-                <View
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/viewbg"
-                    android:backgroundTint="@color/yellow"></View>
+                        <View
+                            android:layout_width="15dp"
+                            android:layout_height="16dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/viewbg"
+                            android:backgroundTint="@color/blue"></View>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:text="@string/total"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:textStyle="bold"></TextView>
+                        <TextView
+                            android:layout_width="73dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:text="@string/recovered"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold"></TextView>
 
-            </LinearLayout>
+                    </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
 
-                <View
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/viewbg"
-                    android:backgroundTint="@color/red">
-                </View>
+                        <View
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/viewbg"
+                            android:backgroundTint="@color/yellow"></View>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:text="@string/deaths"
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    android:textStyle="bold"></TextView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:text="@string/total"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold"></TextView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/viewbg"
+                            android:backgroundTint="@color/red"></View>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:text="@string/deaths"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold"></TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/countryheaderbg"
+        android:layout_below="@id/topbg"
+        >
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/tvHeaderMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:text="Global Detail"
+                android:textColor="@color/toggle_blue"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+        </LinearLayout></RelativeLayout>
 <RelativeLayout
 android:id="@+id/middlebg"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
-android:layout_below="@id/topbg"
+android:layout_below="@id/countryheaderbg"
 android:layout_marginTop="5dp"
 android:gravity="center">
 
@@ -556,8 +587,10 @@ android:orientation="vertical">
 <androidx.recyclerview.widget.RecyclerView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:listitem="@layout/adapter_country"
     android:id="@+id/recyclerview"
     android:layout_marginTop="5dp"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     android:padding="10dp"/>
 
 </LinearLayout>
@@ -585,9 +618,9 @@ android:orientation="vertical">
                     android:layout_margin="16dp"
                     android:background="@color/transparentColor"
                     android:backgroundTint="@color/white"
-
                     android:contentDescription="@string/covid_link"
                     android:src="@drawable/ic_back_1" />
+
 
                 <Space
                     android:layout_width="150dp"

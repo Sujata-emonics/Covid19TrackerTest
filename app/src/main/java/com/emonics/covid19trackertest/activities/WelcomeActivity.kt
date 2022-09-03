@@ -35,7 +35,7 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     fun startGlobalActivity(){
-        var intent = Intent(this, AdminActivity::class.java)
+        var intent = Intent(this, DetailActivity::class.java)
         startActivity(intent)
     }
 

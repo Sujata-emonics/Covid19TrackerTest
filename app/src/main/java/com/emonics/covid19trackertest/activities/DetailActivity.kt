@@ -1,29 +1,39 @@
 package com.emonics.covid19trackertest.activities
 
+import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emonics.covid19trackertest.databinding.ActivityDetailBinding
+import com.emonics.covid19trackertest.helpers.adapter.CityRecyclerAdapter
+import com.emonics.covid19trackertest.helpers.adapter.CountryDetailRecyclerAdapter
 import com.emonics.covid19trackertest.helpers.dbHandler.DBApplication
+import com.emonics.covid19trackertest.helpers.interfaces.RecyclerViewClickListner
 import com.emonics.covid19trackertest.repository.DetailViewRepository
 import com.emonics.covid19trackertest.viewModel.DetailViewFactory
 import com.emonics.covid19trackertest.viewModel.DetailViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.hbb20.CountryCodePicker
 import kotlinx.android.synthetic.main.activity_detail.*
 import org.eazegraph.lib.charts.PieChart
 import org.eazegraph.lib.models.PieModel
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : AppCompatActivity(), RecyclerViewClickListner {
     lateinit var mpiechart: PieChart
     lateinit var spinner: Spinner
     lateinit var viewBinding:ActivityDetailBinding
     lateinit var detailViewModel: DetailViewModel
     lateinit var repository: DetailViewRepository
     lateinit var countryCodePicker: CountryCodePicker
+    //val adapter = CityRecyclerAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityDetailBinding.inflate(layoutInflater)
@@ -34,6 +44,10 @@ class DetailActivity : AppCompatActivity() {
         viewBinding.tvGlobalRecord.setOnClickListener {
             detailViewModel.getGlobalRecord()
         }
+
+
+
+
         //countryCodePicker.setDefaultCountryUsingNameCode("US")
         //var defaultCountryCode = countryCodePicker.defaultCountryName
         //Log.i("tag_","defaultCountryCode"+defaultCountryCode)
@@ -43,11 +57,13 @@ class DetailActivity : AppCompatActivity() {
             country = countryCodePicker.getSelectedCountryName()
             fetchdata(country)
         })
+
         repository = (application as DBApplication).detailViewRepository
         detailViewModel = ViewModelProvider(this, DetailViewFactory(repository,countryCodePicker.getSelectedCountryName().toString())).get(DetailViewModel::class.java)
 
 
         detailViewModel.globalRecord.observe(this, Observer {
+            viewBinding.tvHeaderMessage.text = "Global Record"
             updateGraph( it.global_active_cases!!.toInt(),it.global_confirmed_cases!!.toInt(),it.global_recovered_cases!!.toInt(),it.global_death_cases!!.toInt())
             viewBinding.tvActiveCases.text = it.global_active_cases.toString()
             viewBinding.tvConfirmedCases.text = it.global_confirmed_cases.toString()
@@ -56,13 +72,64 @@ class DetailActivity : AppCompatActivity() {
         })
 
         detailViewModel.countryRecord.observe(this, Observer {
-            updateGraph( it.active_cases!!.toInt(),it.confirmed_cases!!.toInt(),it.recovered_cases!!.toInt(),it.death_cases!!.toInt())
-            viewBinding.tvActiveCases.text = it.active_cases.toString()
-            viewBinding.tvConfirmedCases.text = it.confirmed_cases.toString()
-            viewBinding.tvRecoveredCases.text = it.recovered_cases.toString()
-            viewBinding.tvDeathCases.text = it.death_cases.toString()
-
+            if(it!=null) {
+                updateGraph(
+                    it.active_cases!!.toInt(),
+                    it.confirmed_cases!!.toInt(),
+                    it.recovered_cases!!.toInt(),
+                    it.death_cases!!.toInt()
+                )
+                viewBinding.tvActiveCases.text = it.active_cases.toString()
+                viewBinding.tvConfirmedCases.text = it.confirmed_cases.toString()
+                viewBinding.tvRecoveredCases.text = it.recovered_cases.toString()
+                viewBinding.tvDeathCases.text = it.death_cases.toString()
+            } else {
+                Log.d("tag_", "The data does not available: $it")
+            }
         })
+
+
+        detailViewModel.errormsg.observe(this, Observer {
+            Toast.makeText(this, "The data does not available for the selected country",Toast.LENGTH_SHORT).show()
+            updateGraph(0,0,0,0)
+            viewBinding.tvActiveCases.text = ""
+            viewBinding.tvConfirmedCases.text = ""
+            viewBinding.tvRecoveredCases.text = ""
+            viewBinding.tvDeathCases.text = ""
+        })
+
+        detailViewModel.allCountryRecord.observe(this, Observer {
+            Log.d("tag_", "onCreate: $it")
+            it.forEach {
+
+            }
+            val adapter = CountryDetailRecyclerAdapter(this, recordFor = "global")
+
+            viewBinding.recyclerview.adapter = adapter
+            adapter.setCountryList(it)
+        })
+
+        detailViewModel.cityRecord.observe(this, Observer {
+            Log.d("tag_", "onCreate: $it")
+            it.forEach {
+
+            }
+            val adapter = CountryDetailRecyclerAdapter(this, recordFor = "country")
+
+            viewBinding.recyclerview.adapter = adapter
+            adapter.setCityList(it)
+        })
+
+
+
+        viewBinding.tvSignOut.setOnClickListener {
+            signOut()
+        }
+        viewBinding.btnBack.setOnClickListener {
+            Log.i("tag_","inside onclick")
+            //adminVieModel.saveOrUpdate()
+            finish()
+        }
 
     }
 
@@ -84,7 +151,22 @@ class DetailActivity : AppCompatActivity() {
 
     fun fetchdata(country:String="USA"){
         Log.i("tag_","country "+country)
+        viewBinding.tvHeaderMessage.text = country+" Record"
         detailViewModel.getCountryDetail(country)
     }
 
+    override fun onRecyclerViewItemClick(view: View, country: String) {
+            var intent = Intent(this,CityResultActivity::class.java)
+            intent.putExtra("Country",country)
+            startActivity(intent)
+    }
+    fun signOut(){
+        Log.i("tag_","signOut")
+        var mAuth = FirebaseAuth.getInstance()
+        mAuth.signOut()
+
+        val intent= Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 }
