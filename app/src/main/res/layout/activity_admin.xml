@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
+                android:id="@+id/tvGobal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -264,6 +265,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|bottom"
                         android:background="@color/white"
+                        android:backgroundTint="@color/white"
                         android:src="@drawable/ic_logout"
                         android:contentDescription="@string/covid_link"
                         android:layout_margin="16dp" />
@@ -274,6 +276,7 @@
                         android:id="@+id/btnBack"
                         android:layout_gravity="end|bottom"
                         android:background="@color/white"
+                        android:backgroundTint="@color/white"
                         android:src="@drawable/ic_back"
                         android:contentDescription="@string/covid_link"
                         android:layout_margin="16dp" />

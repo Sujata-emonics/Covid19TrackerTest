@@ -100,6 +100,9 @@ class AdminActivity : AppCompatActivity() {
             signOut()
         }
        dataBinding.tvViewDetail.setOnClickListener {
+           viewGlobalDetail()
+        }
+      dataBinding.tvGobal.setOnClickListener {
            viewDetail()
         }
       dataBinding.tvUpdateDb.setOnClickListener {
@@ -118,10 +121,19 @@ class AdminActivity : AppCompatActivity() {
     }
 
     fun viewDetail(){
-        val intent = Intent(this, CityResultActivity::class.java)
-        var CountryName= dataBinding.spCountrySelectedItem.text
-        Log.i("tag_","country in admin"+CountryName)
-        intent.putExtra("Country",CountryName.toString())
+        val intent = Intent(this, DetailActivity::class.java)
+        //var CountryName= dataBinding.spCountrySelectedItem.text
+        //Log.i("tag_","country in admin"+CountryName)
+       // intent.putExtra("Country",CountryName.toString())
+        startActivity(intent)
+
+    }
+
+    fun viewGlobalDetail(){
+        val intent = Intent(this, DetailActivity::class.java)
+        //var CountryName= dataBinding.spCountrySelectedItem.text
+        //Log.i("tag_","country in admin"+CountryName)
+        intent.putExtra("RECORDTYPE","global")
         startActivity(intent)
 
     }

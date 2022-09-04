@@ -9,6 +9,9 @@
         <entry key="app/src/main/res/drawable-v24/relativebg.xml" value="0.1515" />
         <entry key="app/src/main/res/drawable-v24/relativebgg.xml" value="0.1515" />
         <entry key="app/src/main/res/drawable-v24/viewbg.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/button_backgroung.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/button_checked.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/button_default.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/fab_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_back.xml" value="0.1515" />
         <entry key="app/src/main/res/drawable/ic_coronavirus.xml" value="0.201" />
@@ -28,6 +31,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_new.xml" value="0.25104166666666666" />
         <entry key="app/src/main/res/layout/activity_second.xml" value="0.2520833333333333" />
+        <entry key="app/src/main/res/layout/activity_spark_view.xml" value="0.2947916666666667" />
         <entry key="app/src/main/res/layout/activity_update_dbactivity.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.1" />
         <entry key="app/src/main/res/layout/adapter_city.xml" value="0.1" />

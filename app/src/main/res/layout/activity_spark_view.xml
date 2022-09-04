@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.SparkViewActivity">
+    <RelativeLayout
+        android:id="@+id/topbg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/relativebgg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <TextView
+            android:id="@+id/tvSelectState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Covid-19 Cases of United States"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textAlignment="center"
+         />
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/radioGroupMetricSelection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvSelectState">
+
+                    <RadioButton
+                        android:id="@+id/radioButtonNegative"
+                        style="@style/CustomRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Negative" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonPositive"
+                        style="@style/CustomRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Positive" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonDeath"
+                        style="@style/CustomRadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Death" />
+                </RadioGroup>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/middlebg"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_below="@+id/topbg">
+
+        <com.robinhood.spark.SparkView
+            android:id="@+id/sparkView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorBackgroundShade"
+            android:paddingTop="16dp"
+            android:paddingBottom="80dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lowerbg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/middlebg">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioGroup
+                android:id="@+id/radioGroupTimeSelection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorBackgroundShade"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="8dp">
+
+                <RadioButton
+                    android:id="@+id/radioButtonWeek"
+                    style="@style/CustomRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Week" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonMonth"
+                    style="@style/CustomRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Month" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonMax"
+                    style="@style/CustomRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Max" />
+            </RadioGroup>
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lowerRadiobg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lowerbg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="May 30,2022" />
+
+            <com.robinhood.ticker.TickerView
+                android:id="@+id/tickerView"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                tools:text="4,354" />
+        </LinearLayout>
+
+</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/bottomBtnLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lowerRadiobg"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        tools:ignore="NotSibling">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            >
+
+            <TableRow>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="left|bottom"
+                    android:layout_margin="16dp"
+                    android:background="@color/transparentColor"
+                    android:backgroundTint="@color/white"
+                    android:contentDescription="@string/covid_link"
+                    android:src="@drawable/ic_back_1" />
+
+
+                <Space
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"></Space>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/tvSignOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|bottom"
+
+                    android:layout_margin="16dp"
+                    android:background="@color/white"
+                    android:backgroundTint="@color/white"
+
+                    android:contentDescription="@string/covid_link"
+                    android:src="@drawable/ic_logout" />
+
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
+</RelativeLayout>

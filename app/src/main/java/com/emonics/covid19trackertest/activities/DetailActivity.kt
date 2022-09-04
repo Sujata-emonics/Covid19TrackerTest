@@ -41,6 +41,8 @@ class DetailActivity : AppCompatActivity(), RecyclerViewClickListner {
         setContentView(viewBinding.root)
         mpiechart = viewBinding.pieChart
         //spinner = viewBinding.spinner
+        var countryName = intent.getStringExtra("RECORDTYPE")
+
         countryCodePicker = viewBinding.ccp
         viewBinding.tvGlobalHeader.setOnClickListener {
             detailViewModel.getGlobalRecord()
@@ -181,7 +183,7 @@ class DetailActivity : AppCompatActivity(), RecyclerViewClickListner {
     }
 
     override fun onRecyclerViewItemClick(view: View, country: String) {
-            var intent = Intent(this,CityResultActivity::class.java)
+            var intent = Intent(this,SparkViewActivity::class.java)
             intent.putExtra("Country",country)
             startActivity(intent)
     }

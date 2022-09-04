@@ -125,10 +125,14 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
 
+    //For CountryPicker and PieChart
     implementation 'com.hbb20:ccp:2.5.1'
     implementation 'com.github.blackfizz:eazegraph:1.2.2@aar'
     implementation 'com.nineoldandroids:library:2.4.0'
 
-    implementation 'com.androidplot:androidplot-core:1.5.10'
+    //For spark
+    implementation 'com.robinhood.spark:spark:1.2.0'
+    implementation 'com.robinhood.ticker:ticker:2.0.4'
+
 
 }
