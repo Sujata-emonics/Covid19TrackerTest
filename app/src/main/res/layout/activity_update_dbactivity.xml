@@ -7,6 +7,40 @@
     android:orientation="vertical"
     android:padding="20dp"
     tools:context=".activities.UpdateDBActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout"
+        android:gravity="center"
+        tools:context=".activities.AdminActivity"
+        android:layout_margin="10dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_covid_tracker"
+            android:layout_marginTop="25dp"
+            />
+        <TextView
+            android:text="@string/app_name"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:layout_marginTop="5dp"
+            android:textStyle="bold|normal|italic"
+            android:textColor="@color/darkerGrey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
     <TextView
         android:id="@+id/tvMessage"
         android:layout_width="match_parent"
@@ -14,6 +48,7 @@
         android:text="Database updated successfully."
         android:textStyle="bold"
         android:padding="20dp"
+        android:textAlignment="center"
         android:textColor="@color/toggle_blue"></TextView>
     <TextView
         android:id="@+id/tvViewGlobalRecord"
@@ -22,22 +57,47 @@
         android:text="View Global Record"
         android:padding="20dp"
         android:textStyle="bold"
+        android:textAlignment="center"
         android:textColor="@color/toggle_blue"></TextView>
-    <TextView
-        android:id="@+id/tvPrevious"
+ </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:orientation="vertical"/>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Back"
-        android:textStyle="bold"
-        android:padding="20dp"
-        android:textColor="@color/toggle_blue"></TextView>
-    <TextView
-        android:id="@+id/tvSignOut"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sign Out"
-        android:textStyle="bold"
-        android:padding="20dp"
-        android:textColor="@color/toggle_blue"></TextView>
+        android:orientation="horizontal">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TableRow>
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:id="@+id/tvPrevious"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|bottom"
+                    android:background="@color/white"
+                    android:backgroundTint="@color/white"
+                    android:src="@drawable/ic_back"
+                    android:contentDescription="@string/covid_link"
+                    android:layout_margin="16dp" />
+                <Space android:layout_height="match_parent"
+                    android:layout_width="100dp"></Space>
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:id="@+id/tvLogOut"
+                    android:layout_gravity="end|bottom"
+                    android:background="@color/white"
+                    android:backgroundTint="@color/white"
+                    android:contentDescription="@string/covid_link"
+                    android:src="@drawable/ic_logout"
+                    android:layout_margin="16dp" />
 
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>

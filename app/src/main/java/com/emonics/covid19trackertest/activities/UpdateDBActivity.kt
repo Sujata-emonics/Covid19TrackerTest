@@ -4,11 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emonics.covid19trackertest.R
 import com.emonics.covid19trackertest.Room.CovidTrackerDatabase
+import com.emonics.covid19trackertest.databinding.ActivityDetailBinding
+import com.emonics.covid19trackertest.databinding.ActivityUpdateDbactivityBinding
 import com.emonics.covid19trackertest.helpers.dbHandler.DBApplication
 import com.emonics.covid19trackertest.helpers.retrofit.RetroInstance
 import com.emonics.covid19trackertest.helpers.retrofit.RetroServiceInterFace
@@ -19,9 +22,13 @@ import com.google.firebase.auth.FirebaseAuth
 
 class UpdateDBActivity : AppCompatActivity() {
    private lateinit var databaseViewModel : DatabaseViewModel
+    lateinit var viewBinding: ActivityUpdateDbactivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_update_dbactivity)
+        viewBinding  = ActivityUpdateDbactivityBinding.inflate(layoutInflater)
+        setContentView(viewBinding.root)
+        //setContentView(R.layout.activity_update_dbactivity)
 
         val covidTrackerDatabase: CovidTrackerDatabase
 
@@ -50,23 +57,33 @@ class UpdateDBActivity : AppCompatActivity() {
 
         })
 
-        /*databaseViewModel.userData.observe(this, Observer {
-            it.forEach{
-                Log.i("tag_db","user "+it.name)
-
-            }
-        })*/
-        findViewById<TextView>(R.id.tvPrevious).setOnClickListener {
+        viewBinding.tvLogOut.setOnClickListener {
+            signOut()
+        }
+       viewBinding.tvPrevious.setOnClickListener {
             finish()
         }
-
-        findViewById<TextView>(R.id.tvSignOut).setOnClickListener {
-            var mAuth = FirebaseAuth.getInstance()
-            mAuth.signOut()
-
-            val intent= Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+      viewBinding.tvViewGlobalRecord.setOnClickListener {
+          viewGlobalDetail()
+      }
     }
+    fun viewGlobalDetail(){
+        val intent = Intent(this, DetailActivity::class.java)
+        //var CountryName= dataBinding.spCountrySelectedItem.text
+        //Log.i("tag_","country in admin"+CountryName)
+        intent.putExtra("RECORDTYPE","")
+        startActivity(intent)
+
+    }
+
+    fun signOut(){
+        Log.i("tag_","signOut")
+        var mAuth = FirebaseAuth.getInstance()
+        mAuth.signOut()
+
+        val intent= Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
 }

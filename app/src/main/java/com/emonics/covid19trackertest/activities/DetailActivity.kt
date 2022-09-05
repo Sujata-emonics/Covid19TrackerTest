@@ -70,12 +70,13 @@ class DetailActivity : AppCompatActivity(), RecyclerViewClickListner {
 
 
         detailViewModel.globalRecord.observe(this, Observer {
-            viewBinding.tvCountryHeader.background = resources.getDrawable(R.drawable.switch_track,null)
+            viewBinding.tvGlobalHeader.background = resources.getDrawable(R.drawable.switch_track,null)
             //signUp.setTextColor(resources.getColor(R.color.textColor,null))
-            viewBinding.tvCountryHeader?.setTextColor(resources.getColor(R.color.textColor))
-            viewBinding.tvGlobalHeader?.background = null
-            viewBinding.tvGlobalHeader.setTextColor(resources.getColor(R.color.toggle_blue))
+            viewBinding.tvGlobalHeader?.setTextColor(resources.getColor(R.color.textColor))
+            viewBinding.tvCountryHeader?.background = null
+            viewBinding.tvCountryHeader.setTextColor(resources.getColor(R.color.toggle_blue))
             viewBinding.tvGlobalHeader.text ="Global"
+            viewBinding.tvCountryHeader.text = countryCodePicker.getSelectedCountryName()
 
             updateGraph( it.global_active_cases!!.toInt(),it.global_confirmed_cases!!.toInt(),it.global_recovered_cases!!.toInt(),it.global_death_cases!!.toInt())
             viewBinding.tvActiveCases.text = it.global_active_cases.toString()
@@ -87,11 +88,11 @@ class DetailActivity : AppCompatActivity(), RecyclerViewClickListner {
         detailViewModel.countryRecord.observe(this, Observer {
             if(it!=null) {
               //  viewBinding.tvCountryHeader.setTextColor(resources.getColor(R.color.toggle_blue))
-                viewBinding.tvGlobalHeader.background = resources.getDrawable(R.drawable.switch_track,null)
+                viewBinding.tvCountryHeader.background = resources.getDrawable(R.drawable.switch_track,null)
                 //signUp.setTextColor(resources.getColor(R.color.textColor,null))
-                viewBinding.tvGlobalHeader?.setTextColor(resources.getColor(R.color.textColor))
-                viewBinding.tvCountryHeader?.background = null
-                viewBinding.tvCountryHeader.setTextColor(resources.getColor(R.color.toggle_blue))
+                viewBinding.tvCountryHeader?.setTextColor(resources.getColor(R.color.textColor))
+                viewBinding.tvGlobalHeader?.background = null
+                viewBinding.tvGlobalHeader.setTextColor(resources.getColor(R.color.toggle_blue))
                 viewBinding.tvCountryHeader.text = country
                 updateGraph(
                     it.active_cases!!.toInt(),
@@ -173,11 +174,11 @@ class DetailActivity : AppCompatActivity(), RecyclerViewClickListner {
         Log.i("tag_","country "+country)
 
         //  viewBinding.tvCountryHeader.setTextColor(resources.getColor(R.color.toggle_blue))
-        viewBinding.tvGlobalHeader.background = resources.getDrawable(R.drawable.switch_track,null)
+        viewBinding.tvCountryHeader.background = resources.getDrawable(R.drawable.switch_track,null)
         //signUp.setTextColor(resources.getColor(R.color.textColor,null))
-        viewBinding.tvGlobalHeader?.setTextColor(resources.getColor(R.color.textColor))
-        viewBinding.tvCountryHeader?.background = null
-        viewBinding.tvCountryHeader.setTextColor(resources.getColor(R.color.toggle_blue))
+        viewBinding.tvCountryHeader?.setTextColor(resources.getColor(R.color.textColor))
+        viewBinding.tvGlobalHeader?.background = null
+        viewBinding.tvGlobalHeader.setTextColor(resources.getColor(R.color.toggle_blue))
         viewBinding.tvCountryHeader.text = country
         detailViewModel.getCountryDetail(country)
     }

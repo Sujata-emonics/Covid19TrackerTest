@@ -99,11 +99,11 @@ class AdminActivity : AppCompatActivity() {
         dataBinding.tvSignOut.setOnClickListener {
             signOut()
         }
-       dataBinding.tvViewDetail.setOnClickListener {
+       /*dataBinding.tvViewDetail.setOnClickListener {
            viewGlobalDetail()
-        }
+        }*/
       dataBinding.tvGobal.setOnClickListener {
-           viewDetail()
+          viewGlobalDetail()
         }
       dataBinding.tvUpdateDb.setOnClickListener {
            updateDB()
@@ -125,6 +125,8 @@ class AdminActivity : AppCompatActivity() {
         //var CountryName= dataBinding.spCountrySelectedItem.text
         //Log.i("tag_","country in admin"+CountryName)
        // intent.putExtra("Country",CountryName.toString())
+        intent.putExtra("RECORDTYPE",dataBinding.spCountrySelectedItem.text)
+
         startActivity(intent)
 
     }
@@ -133,7 +135,7 @@ class AdminActivity : AppCompatActivity() {
         val intent = Intent(this, DetailActivity::class.java)
         //var CountryName= dataBinding.spCountrySelectedItem.text
         //Log.i("tag_","country in admin"+CountryName)
-        intent.putExtra("RECORDTYPE","global")
+        intent.putExtra("RECORDTYPE","")
         startActivity(intent)
 
     }

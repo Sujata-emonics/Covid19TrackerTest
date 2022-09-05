@@ -15,8 +15,11 @@ class DetailViewModel(private var detailViewRepository: DetailViewRepository,var
 
     init {
         viewModelScope.launch {
-            detailViewRepository.getCountryDetail(countrySelected)
-            detailViewRepository.getCitiesDetailBasedonCountry(countrySelected)
+           // detailViewRepository.getCountryDetail(countrySelected)
+            //detailViewRepository.getCitiesDetailBasedonCountry(countrySelected)
+            detailViewRepository.getDetailGlobalRecord()
+            detailViewRepository.getAllCountryDetail()
+
 
         }
     }
