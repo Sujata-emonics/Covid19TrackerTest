@@ -10,11 +10,18 @@ import com.google.firebase.auth.FirebaseAuth
 
 class WelcomeActivity : AppCompatActivity() {
     lateinit var viewBinding:ActivityWelcomeBinding
+    lateinit var firebaseAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_welcome)
         viewBinding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
+        firebaseAuth = FirebaseAuth.getInstance()
+        checkUser()
+
+
+
         viewBinding.btnAddCity.setOnClickListener {
             startAdminActivity()
 
@@ -29,6 +36,13 @@ class WelcomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkUser() {
+        var firebaseUser = firebaseAuth.currentUser
+        if(firebaseUser == null){
+            signOut()
+        }
+    }
+
     fun startAdminActivity(){
         var intent = Intent(this, AdminActivity::class.java)
         startActivity(intent)
@@ -40,9 +54,7 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     fun signOut(){
-        Log.i("tag_","signOut")
-        var mAuth = FirebaseAuth.getInstance()
-        mAuth.signOut()
+        firebaseAuth.signOut()
 
         val intent= Intent(this, MainActivity::class.java)
         startActivity(intent)
